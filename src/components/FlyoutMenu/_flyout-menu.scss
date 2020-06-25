@@ -2,19 +2,46 @@
 @import '~carbon-components/scss/globals/scss/layout';
 
 .#{$iot-prefix}-flyout-menu {
-  color: initial;
-  background: $ui-02;
-  box-shadow: 0;
+  display: flex;
 
-  .#{$prefix}--tooltip__caret {
-    display: none;
+  &.top {
+    flex-direction: column-reverse;
+  }
+
+  &.bottom {
+    flex-direction: column;
+  }
+
+  &.right {
+    flex-direction: row;
+  }
+
+  &.left {
+    flex-direction: row-reverse;
+  }
+
+  &--body {
+    color: initial;
+    background: $ui-02;
+    box-shadow: 0;
+
+    .#{$prefix}--tooltip__caret {
+      display: none;
+    }
+  }
+
+  &--tooltip-anchor {
+    height: 0px;
+    width: 0px;
+
+    background: black;
   }
 
   &--open {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important;
   }
 
-  &--light {
+  &__light {
     background: $ui-01;
   }
 
@@ -24,6 +51,17 @@
     padding-top: $spacing-04;
     margin-top: $spacing-04;
   }
+
+  &__bottom-container-custom {
+    min-height: 64px;
+    width: 100%;
+  }
+
+  //TODO look into the giant padding
+  // html[dir='rtl'] &__trigger-button {
+  //   padding-left: 0 !important;
+  //   padding-right: 0 !important;
+  // }
 
   [dir='rtl'] &__submit,
   &__cancel {
@@ -36,7 +74,8 @@
   }
 }
 
-.#{$iot-prefix}-flyout-menu.#{$prefix}--tooltip {
+.#{$iot-prefix}-flyout-menu--body.#{$prefix}--tooltip {
+  min-width: unset !important;
   max-width: unset !important;
 }
 

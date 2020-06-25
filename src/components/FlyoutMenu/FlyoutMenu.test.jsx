@@ -1,6 +1,6 @@
 import React from 'react';
 import '@testing-library/jest-dom';
-import { waitForElement, render, waitFor } from '@testing-library/react';
+import { fireEvent, render, waitFor, waitForElement } from '@testing-library/react';
 
 import FlyoutMenu from './FlyoutMenu';
 
@@ -9,7 +9,9 @@ const cancelButtonText = 'Cancel';
 
 describe('FlyoutMenu', () => {
   it('Renders an open transactional menu', async () => {
-    const { queryByText } = render(<FlyoutMenu open transactional triggerId="flyout-test" />);
+    const { queryByText } = render(
+      <FlyoutMenu defaultOpen transactional triggerId="flyout-test" />
+    );
 
     const applyButtonTest = await waitForElement(() => queryByText(applyButtonText));
 
@@ -20,7 +22,7 @@ describe('FlyoutMenu', () => {
   });
 
   it('Renders an open menu', async () => {
-    const { queryByText } = render(<FlyoutMenu open triggerId="flyout-test" />);
+    const { queryByText } = render(<FlyoutMenu defaultOpen triggerId="flyout-test" />);
 
     const applyButtonTest = queryByText(applyButtonText);
 
@@ -50,7 +52,7 @@ describe('FlyoutMenu', () => {
 
     const cancelButton = await waitForElement(() => queryByText(cancelButtonText));
 
-    cancelButton.click();
+    fireEvent.click(cancelButton);
 
     expect(cancelAction).toHaveBeenCalled();
   });
@@ -64,7 +66,7 @@ describe('FlyoutMenu', () => {
 
     const applyButton = await waitForElement(() => queryByText(applyButtonText));
 
-    applyButton.click();
+    fireEvent.click(applyButton);
 
     expect(applyAction).toHaveBeenCalled();
   });
@@ -82,11 +84,11 @@ describe('FlyoutMenu', () => {
 
     const applyButton = await waitForElement(() => queryByText(applyButtonText));
 
-    applyButton.click();
+    fireEvent.click(applyButton);
 
     const cancelButton = await waitForElement(() => queryByText(cancelButtonText));
 
-    cancelButton.click();
+    fireEvent.click(cancelButton);
 
     const applyButtonVisible = await waitForElement(() => queryByText(applyButtonText));
 
@@ -106,7 +108,7 @@ describe('FlyoutMenu', () => {
 
     const cancelButton = await waitForElement(() => queryByText(cancelButtonText));
 
-    cancelButton.click();
+    fireEvent.click(cancelButton);
 
     const applyButtonVisible = await waitForElement(() => queryByText(applyButtonText));
 
@@ -126,7 +128,7 @@ describe('FlyoutMenu', () => {
 
     const applyButton = await waitForElement(() => queryByText(applyButtonText));
 
-    applyButton.click();
+    fireEvent.click(applyButton);
 
     const applyButtonVisible = await waitForElement(() => queryByText(applyButtonText));
 
@@ -138,13 +140,13 @@ describe('FlyoutMenu', () => {
 
     const button = await container.firstChild.firstChild;
 
-    button.click();
+    fireEvent.click(button);
 
     const applyButtonVisible = await waitForElement(() => queryByText(applyButtonText));
 
     expect(applyButtonVisible).toBeTruthy();
 
-    button.click();
+    fireEvent.click(button);
 
     const applyButtonVisibleStill = queryByText(applyButtonText);
 
